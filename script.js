@@ -1,4 +1,4 @@
-var cityNameEl = document.querySelector("#cityName");
+var cityNameEl = document.querySelector(".cityName");
 var userInputEl = document.querySelector("#userInput");
 var weatherContainerEl = document.querySelector('#weatherContainer');
 var forecastContainerEl = document.querySelector('#forecastContainer');
@@ -6,13 +6,17 @@ var weatherEl = document.querySelector('#weather');
 var previousCitiesEl = document.querySelector('#previousCities');
 var searchCity = document.querySelector('#searchCity');
 var savedCitiesEl = document.querySelector('#savedCities');
+var geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=55785c8317220fbb9098ae56f9cdac87`
+// var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=55785c8317220fbb9098ae56f9cdac87&units=imperial`;
 
-var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=55785c8317220fbb9098ae56f9cdac87&units=imperial`;
-
-var GetWeather = function (value) {
-  fetch(weatherUrl).then(function (response) {
+var getWeather = function (value) {
+  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=55785c8317220fbb9098ae56f9cdac87`).then(function (response) {
     return response.json();
-  });
+  }).then(apiResponse => {
+    console.log(apiResponse);
+    getCitysWeather(apiResponse[0].lat, apiResponse[0].lon);
+    showWeather(apiResponse[0].lat, apiResponse[0].lon);
+  })
 };
 
 function getCity(event) {
@@ -43,22 +47,23 @@ var buttonHandler = function (event) {
   }
 };
 
-var getCitysWeather = function (value) {
-  fetch(weatherUrl)
+var getCitysWeather = function (lat, lon) {
+  fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=55785c8317220fbb9098ae56f9cdac87&units=imperial`)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      var lat = data[0].lat;
-      var lon = data[0].lon;
-      showWeather(lat, lon);
-      storeCity(value);
+        console.log(data);
+    //   var lat = data[0].lat;
+    //   var lon = data[0].lon;
+    //   showWeather(lat, lon);
+    //   storeCity(value);
     });
 };
 
-function showWeather(lat, lon, timezone) {
-  var date = moment().format('dddd');
-  fetch(weatherUrl)
+function showWeather(lat, lon) {
+  var date = moment().format('MM/DD/YY');
+  fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=55785c8317220fbb9098ae56f9cdac87&units=imperial`)
   .then(function (response) {
     return response.json();
   })
@@ -86,8 +91,8 @@ function showWeather(lat, lon, timezone) {
     containerEl.append(h2El, tempEl, windEl, uvEl, humEl);
     weatherContainerEl.append(containerEl);
 
-    for (var i = 0; i < 5; i++) {
-        var newDate = moment().format('dddd');
+    for (var i = 1; i < 6; i++) {
+        var newDate = moment.unix(data.daily[i].dt).format('MM/DD/YY');
         var day = data.daily[i];
         var max = day.temp.max;
         var min = day.temp.min;
