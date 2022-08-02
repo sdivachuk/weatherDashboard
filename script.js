@@ -1,11 +1,11 @@
 var cityNameEl = document.querySelector("#cityName");
 var userInputEl = document.querySelector("#userInput");
-var weatherContainerEl = document.querySelector('#weather-container');
-var forecastContainerEl = document.querySelector('#forecast-container');
+var weatherContainerEl = document.querySelector('#weatherContainer');
+var forecastContainerEl = document.querySelector('#forecastContainer');
 var weatherEl = document.querySelector('#weather');
-var previousCitiesEl = document.querySelector('#button-city');
-var searchCity = document.querySelector('#search-city');
-var savedCitiesEl = document.querySelector('#saved-cities');
+var previousCitiesEl = document.querySelector('#previousCities');
+var searchCity = document.querySelector('#searchCity');
+var savedCitiesEl = document.querySelector('#savedCities');
 
 var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=55785c8317220fbb9098ae56f9cdac87&units=imperial`;
 
@@ -35,7 +35,7 @@ var formSubmitHandler = function (event) {
 };
 
 var buttonHandler = function (event) {
-  var city = event.target.getAttribute("search-city");
+  var city = event.target.getAttribute("searchCity");
 
   if (city) {
     getWeather(city);
@@ -57,7 +57,7 @@ var getCitysWeather = function (value) {
 };
 
 function showWeather(lat, lon, timezone) {
-  var date = dayjs().tz(timezone).format("M/D/YYYY");
+  var date = moment().format('dddd');
   fetch(weatherUrl)
   .then(function (response) {
     return response.json();
@@ -87,7 +87,7 @@ function showWeather(lat, lon, timezone) {
     weatherContainerEl.append(containerEl);
 
     for (var i = 0; i < 5; i++) {
-        var newDate = "";
+        var newDate = moment().format('dddd');
         var day = data.daily[i];
         var max = day.temp.max;
         var min = day.temp.min;
@@ -102,8 +102,8 @@ function showWeather(lat, lon, timezone) {
         var uvElForcast = document.createElement('p');
         var humElForcast = document.createElement('p');
         var divContainer = document.createElement('div');
-        var h2Ele = document.createElement('h2');
-        divContainer.className = "card5";
+        var h2Elem = document.createElement('h2');
+        divContainer.className = "cardContainer";
 
         tempElForcast.textContent = "Temperature: " + tempForcast;
         windElForcast.textContent = "Wind Speed: " + windForcast;
@@ -138,6 +138,6 @@ var displayStoredCities = function () {
     }
 }
 
-previousEl.addEventListener('click', buttonHandler);
+previousCitiesEl.addEventListener('click', buttonHandler);
 userInputEl.addEventListener("submit", formSubmitHandler);
 displayStoredCities();
