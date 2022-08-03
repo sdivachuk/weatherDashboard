@@ -6,7 +6,7 @@ var weatherEl = document.querySelector('#weather');
 var previousCitiesEl = document.querySelector('#previousCities');
 var searchCity = document.querySelector('#searchCity');
 var savedCitiesEl = document.querySelector('#savedCities');
-var geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=55785c8317220fbb9098ae56f9cdac87`
+// var geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=55785c8317220fbb9098ae56f9cdac87`
 // var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=55785c8317220fbb9098ae56f9cdac87&units=imperial`;
 
 var getWeather = function (value) {
@@ -53,11 +53,7 @@ var getCitysWeather = function (lat, lon) {
       return response.json();
     })
     .then(function (data) {
-        console.log(data);
-    //   var lat = data[0].lat;
-    //   var lon = data[0].lon;
-    //   showWeather(lat, lon);
-    //   storeCity(value);
+      saveCity(value);
     });
 };
 
@@ -68,18 +64,18 @@ function showWeather(lat, lon) {
     return response.json();
   })
   .then(function (data) {
-    forecastContainerEl.innerHTML = '';
+    forecastContainerEl.innerHTML = " ";
     var temp = data.current.temp;
     var wind = data.current.wind_speed;
     var uv = data.current.uvi;
     var humidity = data.current.humidity;
-    var containerEl = document.createElement('div');
-    var h2El = document.createElement('h2');
-    var tempEl = document.createElement('p');
-    var windEl = document.createElement('p');
-    var uvEl = document.createElement('p');
-    var humEl = document.createElement('p');
-
+    var containerEl = document.createElement("div");
+    var h2El = document.createElement("h2");
+    var tempEl = document.createElement("p");
+    var windEl = document.createElement("p");
+    var uvEl = document.createElement("p");
+    var humEl = document.createElement("p");
+    containerEl.className = "forcastCard";
 
     tempEl.textContent = "Temperature: " + temp;
     windEl.textContent = "Wind Speed: " + wind;
@@ -92,7 +88,7 @@ function showWeather(lat, lon) {
     weatherContainerEl.append(containerEl);
 
     for (var i = 1; i < 6; i++) {
-        var newDate = moment.unix(data.daily[i].dt).format('MM/DD/YY');
+        var newDate = moment.unix(data.daily[i].dt).format("MM/DD/YY");
         var day = data.daily[i];
         var max = day.temp.max;
         var min = day.temp.min;

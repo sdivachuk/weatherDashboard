@@ -1,13 +1,86 @@
+*{
+box-sizing: border-box;
+background-color: #f1f1f1;
+}
 body{
     padding: 0;
     margin: 0;
 }
+
 h1 {
     text-align: center;
     background-color: darkblue;
     color: white;
     padding: 8px;
+    margin: 8px;
 }
-section{
+section {
     padding: 8px;
+}
+
+#searchCity {
+    padding: 4px 8px;
+}
+
+.cityName {
+    margin-bottom: 8px;
+    padding: 4px;
+}
+
+#previousCities {
+    flex-direction: column;
+}
+
+article {
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3;
+    padding: 10px;
+    margin: 4px;
+}
+
+aside {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin: 4px;
+    padding: 4px;
+}
+
+.card {
+    /* display: -webkit-flex; */
+    display: flex;
+    background: #ccc;
+    padding: 20px;
+}
+
+#forcastDisplay {
+    background: #ccc;
+    padding: 8px;
+}
+
+#forecastContainer {
+    display: flex;
+    padding: 12px;
+    margin: 12px;
+    border: 2px solid black;
+}
+
+#bgrnd {
+    background-color: #ccc;
+}
+
+.forcastCard {
+    height: 100%;
+    width: 50%;
+    margin: 8px;
+    padding: 12px;
+
+}
+
+.cardContainer {
+    margin: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: solid;
 }

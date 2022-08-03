@@ -14,8 +14,8 @@
     </header>
 
     <main>
-      <section id="userInput" class="card">
-        <div>
+      <section class="card">
+        <aside>
           <div>
             <h2>Search city</h2>
             <form id="userInput">
@@ -28,22 +28,23 @@
             <h3>Previous searches</h3>
             <div id="savedCities"></div>
           </div>
-        </div>
+        </aside>
 
-        <div>
+        <article>
           <div>
-            <h3>Weather <span id="weather"></span></h3>
+            <h2>Weather <span id="weather"></span></h2>
             <div id="weatherContainer"></div>
           </div>
-        </div>
+        </article>
       </section>
 
     </main>
 
-    <div>
-        <h3>5 Day Forcast <span id=""></span></h3>
+    <section id="forcastDisplay">
+        <h3 id="bgrnd">5 Day Forcast <span id=""></span></h3>
         <div id="forecastContainer"></div>
-    </div>
+    </section>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./script.js"></script>
   </body>
