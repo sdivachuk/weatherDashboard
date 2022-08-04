@@ -27,7 +27,7 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 
 ## Visuals
-- [image]( )
+- [image](https://tinyurl.com/272fjgle )
 
 ## Resources
 - [Live Site](https://sdivachuk.github.io/weatherDashboard/)

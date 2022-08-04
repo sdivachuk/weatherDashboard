@@ -30,7 +30,7 @@ var formSubmitHandler = function (event) {
 
   if (cityName) {
     getWeather(cityName);
-
+    saveCity(cityName);
     weatherContainerEl.textContent = "";
     cityNameEl.value = "";
   } else {
@@ -38,9 +38,9 @@ var formSubmitHandler = function (event) {
   }
 };
 
-var buttonHandler = function (event) {
-  var city = event.target.getAttribute("searchCity");
-
+var buttonHandler = function () {
+//   var city = event.target.getAttribute("#searchCity");
+var city = document.querySelector("#city").value;
   if (city) {
     getWeather(city);
     weatherContainerEl.textContent = "";
@@ -53,7 +53,8 @@ var getCitysWeather = function (lat, lon) {
       return response.json();
     })
     .then(function (data) {
-      saveCity(value);
+    //   saveCity(value);
+    console.log(data);
     });
 };
 
@@ -119,26 +120,29 @@ function showWeather(lat, lon) {
 }
 
 var saveCity = function (city) {
-    var cities = JSON.parse(localStorage.getItem('cities')) || [];
+    var cities = JSON.parse(localStorage.getItem("cities")) || [];
     if (!cities.includes(city)) {
         cities.push(city);
-        localStorage.setItem('cities', JSON.stringify(cities));
+        localStorage.setItem("cities", JSON.stringify(cities));
         displayStoredCities();
     }
 }
 
 var displayStoredCities = function () {
-    var cities = JSON.parse(localStorage.getItem('cities')) || [];
+ 
+    var cities = JSON.parse(localStorage.getItem("cities")) || [];
     savedCitiesEl.innerHTML = null;
     for (var city of cities) {
-        var cityBtn = document.createElement('button');
+        var cityBtn = document.createElement("button");
         cityBtn.dataset.city = city;
-        cityBtn.className = 'btn';
+        cityBtn.className = "btn";
         cityBtn.textContent = city;
+        cityBtn.addEventListener("click", function(){getWeather(city)})
         savedCitiesEl.append(cityBtn);
+
     }
 }
 
-previousCitiesEl.addEventListener('click', buttonHandler);
+previousCitiesEl.addEventListener("click", buttonHandler);
 userInputEl.addEventListener("submit", formSubmitHandler);
 displayStoredCities();
