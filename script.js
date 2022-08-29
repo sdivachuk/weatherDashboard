@@ -13,7 +13,7 @@ var getWeather = function (value) {
   fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=55785c8317220fbb9098ae56f9cdac87`).then(function (response) {
     return response.json();
   }).then(apiResponse => {
-    console.log(apiResponse);
+    // console.log(apiResponse);
     getCitysWeather(apiResponse[0].lat, apiResponse[0].lon);
     showWeather(apiResponse[0].lat, apiResponse[0].lon);
   })
@@ -33,6 +33,8 @@ var formSubmitHandler = function (event) {
     saveCity(cityName);
     weatherContainerEl.textContent = "";
     cityNameEl.value = "";
+    weather.textContent = `${cityName} Weather`;
+
   } else {
     alert("No city with that name found!");
   }
@@ -44,6 +46,7 @@ var city = document.querySelector("#city").value;
   if (city) {
     getWeather(city);
     weatherContainerEl.textContent = "";
+
   }
 };
 
@@ -54,7 +57,6 @@ var getCitysWeather = function (lat, lon) {
     })
     .then(function (data) {
     //   saveCity(value);
-    console.log(data);
     });
 };
 
